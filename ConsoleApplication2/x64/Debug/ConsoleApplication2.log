@@ -1,0 +1,15 @@
+﻿已經開始建置於 2015/7/27 下午 01:18:58。
+     1>節點 2 (Build 目標) 上的專案 "D:\github\ConsoleApplication2\ConsoleApplication2\ConsoleApplication2.vcxproj"。
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\CL.exe /c /ID:\opencv\build\include /ID:\opencv\build\include\opencv /Zi /nologo /W1 /WX- /O2 /Gm- /EHsc /MD /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc120.pdb" /Gd /TP /errorReport:prompt SocketSourceTEST.cpp
+         SocketSourceTEST.cpp
+     1>d:\opencv\build\include\opencv2\flann\dist.h : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+     1>D:\opencv\build\include\opencv2/legacy/compat.hpp : warning C4819: 檔案含有無法在目前字碼頁 (950) 中表示的字元。請以 Unicode 格式儲存檔案以防止資料遺失
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"D:\github\ConsoleApplication2\x64\Debug\ConsoleApplication2.exe" /NOLOGO D:\opencv\build\x64\vc12\lib\opencv_core2410d.lib D:\opencv\build\x64\vc12\lib\opencv_highgui2410d.lib D:\opencv\build\x64\vc12\lib\opencv_imgproc2410d.lib D:\opencv\build\x64\vc12\lib\opencv_legacy2410d.lib D:\opencv\build\x64\vc12\lib\opencv_ml2410d.lib D:\opencv\build\x64\vc12\lib\opencv_video2410d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /PDB:"D:\github\ConsoleApplication2\x64\Debug\ConsoleApplication2.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\github\ConsoleApplication2\x64\Debug\ConsoleApplication2.lib" /MACHINE:X64 /debug x64\Debug\SocketSourceTEST.obj
+         ConsoleApplication2.vcxproj -> D:\github\ConsoleApplication2\x64\Debug\ConsoleApplication2.exe
+     1>專案 "D:\github\ConsoleApplication2\ConsoleApplication2\ConsoleApplication2.vcxproj" (Build 目標) 建置完成。
+
+建置成功。
+
+經過時間 00:00:01.51
