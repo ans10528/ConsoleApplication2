@@ -56,16 +56,22 @@ int main(int argc, wchar_t **argv)
 
 	const char *pstrImageName = "aaaa.bmp";
 	const char *pstrWindowsTitle = "NONONO2";
-	IplImage *pImage = cvLoadImage(pstrImageName, CV_LOAD_IMAGE_COLOR);
-	//cvNamedWindow(pstrWindowsTitle, CV_WINDOW_AUTOSIZE);
+	//IplImage *pImage = cvLoadImage(pstrImageName, CV_LOAD_IMAGE_COLOR);
+	IplImage *pImage1;
+	//pImage1 = cvCreateImage(cvSize(320,240),8,3);
 	
-	cvShowImage(pstrWindowsTitle, pImage);
+	
+	//cvNamedWindow(pstrWindowsTitle, CV_WINDOW_AUTOSIZE);
 
-	cvWaitKey();
+	//cvShowImage(pstrWindowsTitle, pImage1);
 
-	cvDestroyWindow(pstrWindowsTitle);
-	cvReleaseImage(&pImage);
+	//cvWaitKey();
+
+	//cvDestroyWindow(pstrWindowsTitle);
+	//cvReleaseImage(&pImage);
 	//-------------------------------
+
+	std::cout << "Winsock" << std::endl;
 
 	// Initialize Winsock
 	iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -207,32 +213,43 @@ int main(int argc, wchar_t **argv)
 				get = iResult;
 				if (get == -1) get = 0;
 				// data << tmpAcceptData
-
 				//Array.ConstrainedCopy(tmpAcceptData, 0, data, StartIndex, get); 
+				memcpy(data + StartIndex, tmpAcceptData, iResult*sizeof(char));
+
+				//for (int i = 0; i < 15; i++)
+				//{
+				//	std::cout << tmpAcceptData[i] << " ";
+				//}
+				//std::cout << "\n";
+				//for (int i = 0; i < 15; i++)
+				//{
+				//	std::cout << data[StartIndex+i] << " ";
+				//}
+				//std::cout << "\n";
+
 				StartIndex += get;
 				EndIndex -= get;
-				//if (get == 0)
-				//{
-				//	++TryCount;
-				//	if (TryCount > 100)
-				//	{
-				//		//msg += "Client斷線，或接收逾時";
-				//		shutdown(ClientSocket, 2);
-				//		closesocket(ClientSocket);
-				//		WSACleanup();
-				//		printf("Client斷線，或接收逾時\n");
-				//		system("pause");
-				//		return 0;
-				//	}
-				//}
+
+				delete []tmpAcceptData;
 			}
 		}
+		//測試影像接收是否正常
+		Mat cppImg;
 
 
+		CvMat tmpMat = cvMat(320, 240, CV_8UC1, data);
+		pImage1 = cvDecodeImage(&tmpMat,1);
+		//pImage1 = cvDecodeImage();
+		//pImage1->imageData = data;
+		cvShowImage(pstrWindowsTitle, pImage1);
+		cvWaitKey(33);
+		//Sleep(100);
+		//cvWaitKey();
 
 		//回傳接收成功 要求下一張影像
 		send(ClientSocket, new char[]{3}, 1, 0);
 
+		delete []data;
 	} while (iResult > 0);
 
 	// shutdown the connection since we're done
