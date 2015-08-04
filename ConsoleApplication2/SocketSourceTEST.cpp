@@ -34,32 +34,13 @@ int main(int argc, wchar_t **argv)
 	int recvbuflen = DEFAULT_BUFLEN;
 
 
-	//---------------------------------------------------
-	//cv test
-	//char* imageName = "aaaa.bmp";
-
-	//Mat image;
-	//image = imread("aaaa.bmp", 1);
-
-
-	//Mat gray_image;
-	//cvtColor(image, gray_image, CV_RGB2GRAY);
-
-	////imwrite("maple girl gray.jpg", gray_image);
-
-	//namedWindow(imageName, CV_WINDOW_AUTOSIZE);
-	//namedWindow("Gray image", CV_WINDOW_AUTOSIZE);
-
-	//imshow(imageName, image);
-	//imshow("Gray image", gray_image);
-	//---------------------------------------------------
-
 	const char *pstrImageName = "aaaa.bmp";
 	const char *pstrWindowsTitle = "NONONO2";
-	//IplImage *pImage = cvLoadImage(pstrImageName, CV_LOAD_IMAGE_COLOR);
+
 	IplImage *pImage1;
-	//pImage1 = cvCreateImage(cvSize(320,240),8,3);
-	
+	pImage1 = cvCreateImage(cvSize(320,240),8,3);
+
+	cvShowImage(pstrWindowsTitle, pImage1);
 	
 	//cvNamedWindow(pstrWindowsTitle, CV_WINDOW_AUTOSIZE);
 
@@ -173,10 +154,6 @@ int main(int argc, wchar_t **argv)
 		iResult = recv(ClientSocket, data_Len_Buf, 4, 0);
 		iResult = recv(ClientSocket, data_SendTime_Buf, 4, 0);
 
-
-		//dataLen = (int) (data_Len_Buf[0]) << 24 | (int) (data_Len_Buf[1]) << 16 | (int) (data_Len_Buf[2]) << 8 | data_Len_Buf[3];
-
-		//dataLen = data_Len_Buf[0] << 24 | data_Len_Buf[1] << 16 | data_Len_Buf[2] << 8 | data_Len_Buf[3];
 		dataLen = (unsigned char) data_Len_Buf[0] << 24 | (unsigned char) data_Len_Buf[1] << 16 | (unsigned char) data_Len_Buf[2] << 8 | (unsigned char) data_Len_Buf[3];
 
 		printf("datalen = %d\n", dataLen);
@@ -212,20 +189,8 @@ int main(int argc, wchar_t **argv)
 				iResult = recv(ClientSocket, tmpAcceptData, EndIndex, 0);
 				get = iResult;
 				if (get == -1) get = 0;
-				// data << tmpAcceptData
-				//Array.ConstrainedCopy(tmpAcceptData, 0, data, StartIndex, get); 
-				memcpy(data + StartIndex, tmpAcceptData, iResult*sizeof(char));
 
-				//for (int i = 0; i < 15; i++)
-				//{
-				//	std::cout << tmpAcceptData[i] << " ";
-				//}
-				//std::cout << "\n";
-				//for (int i = 0; i < 15; i++)
-				//{
-				//	std::cout << data[StartIndex+i] << " ";
-				//}
-				//std::cout << "\n";
+				memcpy(data + StartIndex, tmpAcceptData, iResult*sizeof(char));
 
 				StartIndex += get;
 				EndIndex -= get;
@@ -235,16 +200,11 @@ int main(int argc, wchar_t **argv)
 		}
 		//測試影像接收是否正常
 		Mat cppImg;
-
-
 		CvMat tmpMat = cvMat(320, 240, CV_8UC1, data);
 		pImage1 = cvDecodeImage(&tmpMat,1);
-		//pImage1 = cvDecodeImage();
-		//pImage1->imageData = data;
 		cvShowImage(pstrWindowsTitle, pImage1);
 		cvWaitKey(33);
-		//Sleep(100);
-		//cvWaitKey();
+
 
 		//回傳接收成功 要求下一張影像
 		send(ClientSocket, new char[]{3}, 1, 0);
